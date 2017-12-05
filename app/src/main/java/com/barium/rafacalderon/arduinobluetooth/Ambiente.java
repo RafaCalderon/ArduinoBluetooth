@@ -65,13 +65,21 @@ public class Ambiente extends Fragment {
         guardarDatos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                guardarDatos(etxTemperatura.getText().toString(), etxHumedad.getText().toString());
+                if (etxTemperatura.getText().toString().isEmpty() || etxHumedad.getText().toString().isEmpty()){
+                    Toast.makeText(getContext(), "Llene todos los campos",Toast.LENGTH_SHORT).show();
+                }else {
+                    guardarDatos(etxTemperatura.getText().toString(), etxHumedad.getText().toString());
+                }
             }
         });
         guardarDatosSQLite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                guardarDatosSQLite(etxTemperatura.getText().toString(), etxHumedad.getText().toString());
+                if (etxTemperatura.getText().toString().isEmpty() || etxHumedad.getText().toString().isEmpty()){
+                    Toast.makeText(getContext(), "Llene todos los campos",Toast.LENGTH_SHORT).show();
+                }else{
+                    guardarDatosSQLite(etxTemperatura.getText().toString(), etxHumedad.getText().toString());
+                }
             }
         });
         try {
@@ -132,7 +140,7 @@ public class Ambiente extends Fragment {
                     Log.i("INFO",result);
                     etxHumedad.setText("");
                     etxTemperatura.setText("");
-                    Toast.makeText(getContext(), "Datos guardados exitosamente", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Datos guardados exitosamente con PHP", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -166,7 +174,7 @@ public class Ambiente extends Fragment {
         crud.insertar(i);
         etxHumedad.setText("");
         etxTemperatura.setText("");
-        Toast.makeText(getContext(), "Datos guardados exitosamente", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Datos guardados exitosamente con SQLite", Toast.LENGTH_SHORT).show();
     }
 
     public void sendBT(char dato) {

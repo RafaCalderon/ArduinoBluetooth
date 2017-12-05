@@ -68,7 +68,14 @@
             android:background="@drawable/boton_portada"
             android:layout_alignParentBottom="true"
             android:id="@+id/btComenzarAmbiente"/>
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PHP"
+            android:gravity="center"
+            android:layout_above="@id/guardarDatosAmbiente"
+            android:layout_alignParentRight="true"
+            android:layout_alignStart="@id/guardarDatosAmbiente"/>
         <android.support.design.widget.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -78,6 +85,13 @@
             android:layout_marginBottom="10dp"
             android:layout_marginRight="10dp"
             android:src="@drawable/ic_save_black_24dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SQLite"
+            android:gravity="center"
+            android:layout_alignStart="@id/guardarDatosAmbienteSQLite"
+            android:layout_above="@id/guardarDatosAmbienteSQLite"/>
         <android.support.design.widget.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

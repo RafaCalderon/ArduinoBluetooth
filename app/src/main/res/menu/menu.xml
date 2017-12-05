@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/itVerRegistros"
-        android:icon="@drawable/ic_database"
-        android:title="Ver registros"
+        android:icon="@drawable/ic_php"
+        android:title="PHP"
         app:showAsAction="always" />
     <item
         android:id="@+id/itVerRegistrosSQLite"
-        android:icon="@drawable/ic_database"
-        android:title="Ver registros"
+        android:icon="@drawable/ic_sqlite"
+        android:title="SQLite"
         app:showAsAction="always" />
     <item
         android:id="@+id/acercaDe"
