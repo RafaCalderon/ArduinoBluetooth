@@ -14,6 +14,6 @@
     <item
         android:id="@+id/acercaDe"
         android:icon="@drawable/ic_info_black_24dp"
-        android:title="Acerca De"
+        android:title="Acerca de"
         app:showAsAction="never" />
 </menu>

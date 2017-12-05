@@ -42,7 +42,7 @@ public class Ambiente extends Fragment {
     private Button comenzar;
     private EditText etxTemperatura;
     private EditText etxHumedad;
-    private FloatingActionButton guardarDatos;
+    private FloatingActionButton guardarDatos, guardarDatosSQLite;
     private int flag = 0;
     temperatura temperatura;
 
@@ -59,12 +59,19 @@ public class Ambiente extends Fragment {
         //txtHum = (TextView) view.findViewById(R.id.txtHumAmbiente);
         comenzar = (Button) view.findViewById(R.id.btComenzarAmbiente);
         guardarDatos = (FloatingActionButton) view.findViewById(R.id.guardarDatosAmbiente);
+        guardarDatosSQLite = (FloatingActionButton) view.findViewById(R.id.guardarDatosAmbienteSQLite);
         etxHumedad = (EditText) view.findViewById(R.id.etxHumedad);
         etxTemperatura = (EditText) view.findViewById(R.id.etxTemperatura);
         guardarDatos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 guardarDatos(etxTemperatura.getText().toString(), etxHumedad.getText().toString());
+            }
+        });
+        guardarDatosSQLite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                guardarDatosSQLite(etxTemperatura.getText().toString(), etxHumedad.getText().toString());
             }
         });
         try {
@@ -135,6 +142,31 @@ public class Ambiente extends Fragment {
                 Log.i("FAIL",result);
             }
         });
+    }
+
+    public void guardarDatosSQLite(String temperatura, String humedad){
+        CRUDInfoAmbiente crud = new CRUDInfoAmbiente(getContext());
+        Date d = new Date();
+        Calendar c = new GregorianCalendar();
+        c.setTime(d);
+        int diaInt = c.get(Calendar.DAY_OF_MONTH);
+        int mesInt = c.get(Calendar.MONTH);
+        int horaInt = c.get(Calendar.HOUR_OF_DAY);
+        int minutoInt = c.get(Calendar.MINUTE);
+        int segundoInt = c.get(Calendar.SECOND);
+        String dia, mes, hora, minuto, segundo;
+        if(diaInt < 10){dia = "0"+diaInt;}else{dia=String.valueOf(diaInt);}
+        if(mesInt < 10){mes = "0"+mesInt;}else{mes=String.valueOf(mesInt);}
+        if(horaInt < 10){hora = "0"+horaInt;}else{hora=String.valueOf(horaInt);}
+        if(minutoInt < 10){minuto = "0"+minutoInt;}else{minuto=String.valueOf(minutoInt);}
+        if(segundoInt< 10){segundo= "0"+segundoInt;}else{segundo=String.valueOf(segundoInt);}
+        String año = String.valueOf(c.get(Calendar.YEAR));
+        String fecha = año+"-"+mes+"-"+dia+" "+hora+":"+minuto+":"+segundo;
+        InfoAmbiente i = new InfoAmbiente(temperatura, humedad,fecha);
+        crud.insertar(i);
+        etxHumedad.setText("");
+        etxTemperatura.setText("");
+        Toast.makeText(getContext(), "Datos guardados exitosamente", Toast.LENGTH_SHORT).show();
     }
 
     public void sendBT(char dato) {
