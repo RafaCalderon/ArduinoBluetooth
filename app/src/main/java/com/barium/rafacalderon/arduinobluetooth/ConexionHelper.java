@@ -24,7 +24,6 @@ public class ConexionHelper extends SQLiteOpenHelper{
         script = "CREATE TABLE "+TABLA+"("+COLUMN_ID+" integer primary key autoincrement,";
         script += COLUMN_TEMPERATURA+" text,"+COLUMN_HUMEDAD+" text,"+COLUMN_FECHA_HORA+" text)";
         db.execSQL(script);
-        db.execSQL("INSERT INTO ambiente VALUES (null, '20','20','2017-11-04 22:05:52')");
     }
 
     @Override

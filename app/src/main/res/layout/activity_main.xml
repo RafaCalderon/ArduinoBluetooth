@@ -35,7 +35,6 @@
             android:textColor="#cf5d08"
             android:id="@+id/btnConectar"
             android:textSize="15sp"/>
-
     </LinearLayout>
 </RelativeLayout>
 

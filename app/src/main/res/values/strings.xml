@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ArduinoBluetooth</string>
+    <string name="app_name">PlantMe</string>
     <string name="bienvenido">¡Bienvenido! Presiona \"Conectar\" para qué puedas acceder a la información de tu cultivo en tiempo real</string>
     <string name="texto_dispositivos">Solo un paso más. Selecciona un dispositivo compatible. \n(Solo dispositivos HC-05)</string>
 

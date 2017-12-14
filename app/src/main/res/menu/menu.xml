@@ -16,4 +16,9 @@
         android:icon="@drawable/ic_info_black_24dp"
         android:title="Acerca de"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/desconectar"
+        android:icon="@drawable/ic_exit"
+        android:title="Desconectar"
+        app:showAsAction="always" />
 </menu>

@@ -81,6 +81,9 @@ public class Dispositivos extends AppCompatActivity {
                 deviceName = bluetoothDevices[0].getName();
                 bluetoothSocket.connect();
                 this.cancel(true);
+                Intent goPrincipal = new Intent(Dispositivos.this, Principal.class);
+                startActivity(goPrincipal);
+                finish();
 
             } catch (NoSuchMethodException e) {
                 publishProgress(2);
@@ -95,9 +98,6 @@ public class Dispositivos extends AppCompatActivity {
                 publishProgress(2);
                 e.printStackTrace();
             }
-            Intent goPrincipal = new Intent(Dispositivos.this, Principal.class);
-            startActivity(goPrincipal);
-            finish();
             return null;
         }
 

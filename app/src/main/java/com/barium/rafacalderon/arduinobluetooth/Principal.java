@@ -13,6 +13,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import java.io.IOException;
+
 public class Principal extends AppCompatActivity {
 
     private Toolbar toolbar;
@@ -56,6 +58,16 @@ public class Principal extends AppCompatActivity {
             case R.id.itVerRegistrosSQLite:
                 Intent k = new Intent(this, Registros_SQLite.class);
                 startActivity(k);
+                break;
+            case R.id.desconectar:
+                try {
+                    Dispositivos.bluetoothSocket.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Intent l = new Intent(this, MainActivity.class);
+                startActivity(l);
+                finish();
                 break;
         }
         return true;

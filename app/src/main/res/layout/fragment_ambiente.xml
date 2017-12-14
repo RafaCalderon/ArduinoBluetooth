@@ -3,10 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.barium.rafacalderon.arduinobluetooth.Ambiente">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/fondo_ambiente"
+        android:scaleType="centerCrop"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimary"
         android:gravity="center_vertical">
         <LinearLayout
             android:layout_width="match_parent"
@@ -19,28 +23,9 @@
                 android:orientation="vertical"
                 android:paddingLeft="20dp"
                 android:paddingTop="10dp"
-                android:paddingBottom="10dp">
+                android:paddingBottom="10dp"
+                android:background="#33E0BF23">
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="Temperatura:"
-                    android:textColor="#fff"
-                    android:textSize="25sp"/>
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/etxTemperatura"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="Humedad:"
-                    android:textColor="#fff"
-                    android:textSize="25sp"/>
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/etxHumedad"/>
-                <!--<TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Temperatura: 0°C"
@@ -53,11 +38,8 @@
                     android:text="Humedad: 0%"
                     android:textColor="#fff"
                     android:id="@+id/txtHumAmbiente"
-                    android:textSize="30sp"/>-->
+                    android:textSize="30sp"/>
             </LinearLayout>
-            <ProgressBar
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
         </LinearLayout>
         <Button
             android:layout_width="match_parent"
@@ -75,7 +57,8 @@
             android:gravity="center"
             android:layout_above="@id/guardarDatosAmbiente"
             android:layout_alignParentRight="true"
-            android:layout_alignStart="@id/guardarDatosAmbiente"/>
+            android:layout_alignStart="@id/guardarDatosAmbiente"
+            android:textColor="#fff"/>
         <android.support.design.widget.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -91,7 +74,8 @@
             android:text="SQLite"
             android:gravity="center"
             android:layout_alignStart="@id/guardarDatosAmbienteSQLite"
-            android:layout_above="@id/guardarDatosAmbienteSQLite"/>
+            android:layout_above="@id/guardarDatosAmbienteSQLite"
+            android:textColor="#fff"/>
         <android.support.design.widget.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

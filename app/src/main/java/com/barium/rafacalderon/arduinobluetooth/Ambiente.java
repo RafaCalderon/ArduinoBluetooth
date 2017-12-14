@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,8 +39,6 @@ public class Ambiente extends Fragment {
     private TextView txtTemp;
     private TextView txtHum;
     private Button comenzar;
-    private EditText etxTemperatura;
-    private EditText etxHumedad;
     private FloatingActionButton guardarDatos, guardarDatosSQLite;
     private int flag = 0;
     temperatura temperatura;
@@ -55,30 +52,32 @@ public class Ambiente extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_ambiente, container, false);
-        //txtTemp = (TextView) view.findViewById(R.id.txtTempAmbiente);
-        //txtHum = (TextView) view.findViewById(R.id.txtHumAmbiente);
+        txtTemp = (TextView) view.findViewById(R.id.txtTempAmbiente);
+        txtHum = (TextView) view.findViewById(R.id.txtHumAmbiente);
         comenzar = (Button) view.findViewById(R.id.btComenzarAmbiente);
         guardarDatos = (FloatingActionButton) view.findViewById(R.id.guardarDatosAmbiente);
         guardarDatosSQLite = (FloatingActionButton) view.findViewById(R.id.guardarDatosAmbienteSQLite);
-        etxHumedad = (EditText) view.findViewById(R.id.etxHumedad);
-        etxTemperatura = (EditText) view.findViewById(R.id.etxTemperatura);
         guardarDatos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (etxTemperatura.getText().toString().isEmpty() || etxHumedad.getText().toString().isEmpty()){
-                    Toast.makeText(getContext(), "Llene todos los campos",Toast.LENGTH_SHORT).show();
-                }else {
-                    guardarDatos(etxTemperatura.getText().toString(), etxHumedad.getText().toString());
+                String temperatura = txtTemp.getText().toString().replace("Temperatura: ", "").replace("°C","");
+                String humedad = txtHum.getText().toString().replace("Humedad: ", "").replace("%","");
+                if(!temperatura.equals("0") && !humedad.equals("0")){
+                    guardarDatos(temperatura, humedad);
+                }else{
+                    Toast.makeText(getContext(), "Presione el botón Iniciar Captura", Toast.LENGTH_SHORT).show();
                 }
             }
         });
         guardarDatosSQLite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (etxTemperatura.getText().toString().isEmpty() || etxHumedad.getText().toString().isEmpty()){
-                    Toast.makeText(getContext(), "Llene todos los campos",Toast.LENGTH_SHORT).show();
+                String temperatura = txtTemp.getText().toString().replace("Temperatura: ", "").replace("°C","");
+                String humedad = txtHum.getText().toString().replace("Humedad: ", "").replace("%","");
+                if(!temperatura.equals("0") && !humedad.equals("0")) {
+                    guardarDatosSQLite(temperatura, humedad);
                 }else{
-                    guardarDatosSQLite(etxTemperatura.getText().toString(), etxHumedad.getText().toString());
+                    Toast.makeText(getContext(), "Presione el botón Iniciar Captura", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -92,16 +91,15 @@ public class Ambiente extends Fragment {
             @Override
             public void onClick(View view) {
                 if (flag == 0) {
-                    //sendBT('1');
+                    sendBT('1');
                     comenzar.setText("Detener captura de datos");
-                    Toast.makeText(getContext(), "Funcionalidad deshabilitada", Toast.LENGTH_LONG).show();
-                    //temperatura = new temperatura();
-                    //temperatura.execute();
+                    temperatura = new temperatura();
+                    temperatura.execute();
                     flag = 1;
                 } else {
-                    //sendBT('0');
+                    sendBT('0');
                     comenzar.setText("Iniciar captura de datos");
-                    //temperatura.cancel(true);
+                    temperatura.cancel(true);
                     flag = 0;
                 }
             }
@@ -117,7 +115,7 @@ public class Ambiente extends Fragment {
         Calendar c = new GregorianCalendar();
         c.setTime(d);
         int diaInt = c.get(Calendar.DAY_OF_MONTH);
-        int mesInt = c.get(Calendar.MONTH);
+        int mesInt = c.get(Calendar.MONTH)+1;
         int horaInt = c.get(Calendar.HOUR_OF_DAY);
         int minutoInt = c.get(Calendar.MINUTE);
         int segundoInt = c.get(Calendar.SECOND);
@@ -128,7 +126,7 @@ public class Ambiente extends Fragment {
         if(minutoInt < 10){minuto = "0"+minutoInt;}else{minuto=String.valueOf(minutoInt);}
         if(segundoInt< 10){segundo= "0"+segundoInt;}else{segundo=String.valueOf(segundoInt);}
         String año = String.valueOf(c.get(Calendar.YEAR));
-        String fecha = año+"-"+mes+"-"+dia+" "+hora+":"+minuto+":"+segundo;
+        String fecha = dia+"/"+mes+"/"+año+" "+hora+":"+minuto+":"+segundo;
         params.put("fecha", fecha);
         params.put("temperatura", temperatura);
         params.put("humedad", humedad);
@@ -137,9 +135,6 @@ public class Ambiente extends Fragment {
             public void onSuccess(int i, Header[] headers, byte[] bytes) {
                 if(i==200){
                     String result = new String(bytes);
-                    Log.i("INFO",result);
-                    etxHumedad.setText("");
-                    etxTemperatura.setText("");
                     Toast.makeText(getContext(), "Datos guardados exitosamente con PHP", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -147,7 +142,6 @@ public class Ambiente extends Fragment {
             @Override
             public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
                 String result = new String(bytes);
-                Log.i("FAIL",result);
             }
         });
     }
@@ -158,7 +152,7 @@ public class Ambiente extends Fragment {
         Calendar c = new GregorianCalendar();
         c.setTime(d);
         int diaInt = c.get(Calendar.DAY_OF_MONTH);
-        int mesInt = c.get(Calendar.MONTH);
+        int mesInt = c.get(Calendar.MONTH)+1;
         int horaInt = c.get(Calendar.HOUR_OF_DAY);
         int minutoInt = c.get(Calendar.MINUTE);
         int segundoInt = c.get(Calendar.SECOND);
@@ -169,11 +163,9 @@ public class Ambiente extends Fragment {
         if(minutoInt < 10){minuto = "0"+minutoInt;}else{minuto=String.valueOf(minutoInt);}
         if(segundoInt< 10){segundo= "0"+segundoInt;}else{segundo=String.valueOf(segundoInt);}
         String año = String.valueOf(c.get(Calendar.YEAR));
-        String fecha = año+"-"+mes+"-"+dia+" "+hora+":"+minuto+":"+segundo;
+        String fecha = dia+"/"+mes+"/"+año+" "+hora+":"+minuto+":"+segundo;
         InfoAmbiente i = new InfoAmbiente(temperatura, humedad,fecha);
         crud.insertar(i);
-        etxHumedad.setText("");
-        etxTemperatura.setText("");
         Toast.makeText(getContext(), "Datos guardados exitosamente con SQLite", Toast.LENGTH_SHORT).show();
     }
 
@@ -229,9 +221,11 @@ public class Ambiente extends Fragment {
         if (this.isVisible()) {
             if (!isVisibleToUser) {
                 //Invisible
-                //sendBT('0');
+                sendBT('0');
                 comenzar.setText("Iniciar captura de datos");
-                //temperatura.cancel(true);
+                if(temperatura != null){
+                    temperatura.cancel(true);
+                }
                 Log.d("fragmento", "Esta invisible");
                 flag = 0;
             } else {
